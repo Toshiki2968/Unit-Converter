@@ -25,22 +25,42 @@
 
     <div>
         <form onsubmit="ConvertLength()">
-            <p>Enter the length to convert</p>
-            <select name="name" id="length-unit" title="title" required>
-                <option>millimeter</option>
-                <option>centimeter</option>
-                <option>meter</option>
-                <option>kilometer</option>
-                <option>inch</option>
-                <option>foot</option>
-                <option>yard</option>
-                <option>mile</option>
-            </select>
-            <p>Unit to Convert from</p>
-            <input type="number" id="length-from" title="from" required>
-            <p>Unit to Convert to</p>
-            <input title="to">
-            <button type="submit">Convert</button>
+            <div>
+                <p>Enter the length to convert</p>
+                <input type="number" id="length" title="length" required>
+            </div>
+
+            <div>
+                <p>Unit to Convert from</p>
+                <select id="unit-legnth-from" title="title" required>
+                    <option value="mm">mm</option>
+                    <option value="cm">cm</option>
+                    <option value="m">m</option>
+                    <option value="km">km</option>
+                    <option value="in">in</option>
+                    <option value="ft">ft</option>
+                    <option value="yd">yd</option>
+                    <option value="mile">mile</option>
+                </select>
+            </div>
+
+            <div>
+                <p>Unit to Convert to</p>
+                <select id="unit-length-to" title="unit-length-to" required>
+                    <option value="mm">mm</option>
+                    <option value="cm">cm</option>
+                    <option value="m">m</option>
+                    <option value="km">km</option>
+                    <option value="in">in</option>
+                    <option value="ft">ft</option>
+                    <option value="yd">yd</option>
+                    <option value="mile">mile</option>
+                </select>
+            </div>
+
+            <div>
+                <button type="submit">Convert</button>
+            </div>
         </form>
         <h3>Result: <span id="result">-</span></h3>
     </div>
@@ -49,10 +69,24 @@
             event.preventDefault();
 
             // フォームの各入力値を取得
-            const input1 = document.getElementById('length-from').value;
-            const from = Int32.Parse(input1);
-            console.log(lengthValue);
-            document.getElementById("result").innerText = "test";
+            const length = document.getElementById('length').value;
+            const unitLengthFrom = document.getElementById('unit-length-from').value;
+            const unitLengthTo = document.getElementById('unit-length-to').value;
+
+            const conversionRates = {
+                "m": 1,
+                "km": 0.001,
+                "cm": 100,
+                "mm": 1000,
+                "in": 39.3701,
+                "ft": 3.28084,
+                "yd": 1.09361,
+                "mile": 0.000621371
+            };
+
+            const meters = value / conversionRates[unitLengthFrom];
+            const result =  meters * conversionRates[unitLengthTo];
+            document.getElementById("result").innerText = result;
         }
     </script>
 </Body>
